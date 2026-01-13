@@ -1,0 +1,25 @@
+{
+  "name": "phil-ai-learning-dev",
+  "description": "Capture, track, and implement learnings with hierarchical storage and closed-loop tracking across profiles",
+  "owner": {
+    "name": "Phil Beyer",
+    "email": "6152278+pjbeyer@users.noreply.github.com",
+    "url": "https://github.com/pjbeyer/phil-ai-learning"
+  },
+  "plugins": [
+    {
+      "name": "phil-ai-learning",
+      "version": "1.1.1",
+      "description": "Capture, track, and implement learnings with hierarchical storage and closed-loop tracking across profiles",
+      "source": {
+        "source": "url",
+        "url": "https://github.com/pjbeyer/phil-ai-learning"
+      },
+      "author": {
+        "name": "Phil Beyer",
+        "email": "6152278+pjbeyer@users.noreply.github.com"
+      },
+      "license": "MIT"
+    }
+  ]
+}
