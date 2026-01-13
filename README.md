@@ -174,10 +174,44 @@ ${CLAUDE_PLUGIN_ROOT}/scripts/find-learnings.sh --json
 
 **Features**:
 - Searches across all profiles
+- **Discovers project-level learnings dynamically** (v1.1.2+)
 - Filters by implementation status
 - Handles missing directories gracefully
 - Multiple output formats (text, JSON)
 - Never fails with cryptic errors
+
+**Search Locations**:
+
+The script searches two types of locations:
+
+1. **Profile-level** (standard hierarchy):
+   - `~/Projects/.workflow/docs/continuous-improvement/learnings/` (Global)
+   - `~/Projects/{profile}/.workflow/docs/continuous-improvement/learnings/` (pjbeyer, work, play, home)
+
+2. **Project-level** (dynamically discovered, v1.1.2+):
+   - `~/Projects/work/{project}/docs/continuous-improvement/learnings/`
+   - Auto-discovers any project within `work/` that has this directory structure
+
+**Example output**:
+```
+=== Learning Files Summary ===
+
+--- Profile Level ---
+Global: 27 files (27 implemented, 0 unimplemented)
+pjbeyer: 9 files (9 implemented, 0 unimplemented)
+work: 30 files (30 implemented, 0 unimplemented)
+...
+
+--- Project Level (work) ---
+work/manager-agents: 36 files (36 implemented, 0 unimplemented)
+work/shared-agents: 18 files (18 implemented, 0 unimplemented)
+...
+
+Total: 129 files (129 implemented, 0 unimplemented)
+  (Profile: 66, Project: 63)
+```
+
+> **History**: Prior to v1.1.2, the script only searched profile-level paths, missing project-level learnings. This was fixed by adding dynamic discovery of `*/docs/continuous-improvement/learnings` directories within the work profile.
 
 ## Configuration
 
