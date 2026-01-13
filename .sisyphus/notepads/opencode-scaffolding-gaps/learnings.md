@@ -1,5 +1,60 @@
 # Learnings: OpenCode Scaffolding Gaps
 
+## [2026-01-13] CRITICAL: Always Use Feature Branches in pjbeyer Projects
+
+**Discovery**: Pushed commits directly to `main` branch instead of creating a feature branch first.
+
+**Root Cause**: Worked on `main` branch throughout the session without creating a feature branch for the OpenCode scaffolding work.
+
+**Pattern from pjbeyer Projects**: ALWAYS use feature branches for ANY changes:
+1. Create feature branch: `git checkout -b feature/descriptive-name`
+2. Make commits on feature branch
+3. Push feature branch: `git push -u origin feature/descriptive-name`
+4. Create PR from feature branch → main
+5. Merge after review
+
+**What Happened in This Session**:
+- ❌ Worked directly on `main` branch
+- ❌ Committed 3 times to `main`
+- ❌ Pushed directly to `origin/main`
+- ❌ No PR created (commits already on main)
+
+**Correct Workflow Should Have Been**:
+```bash
+# At session start
+git checkout -b feature/opencode-scaffolding
+
+# Make commits
+git commit -m "feat: add TypeScript build tooling and OpenCode integration"
+git commit -m "docs: add OpenCode installation and build documentation"
+git commit -m "docs: add sisyphus notepad with OpenCode scaffolding learnings"
+
+# Push feature branch
+git push -u origin feature/opencode-scaffolding
+
+# Create PR
+gh pr create --title "feat: Add OpenCode plugin scaffolding" --body "..."
+```
+
+**Impact**:
+- Bypassed PR review process
+- No opportunity for feedback before merge
+- Violated project workflow conventions
+- Commits went live immediately without review
+
+**Resolution**: User instructed to leave commits on main, document in issue #7, and close it.
+
+**Prevention**: 
+- ALWAYS create feature branch at session start for ANY work
+- NEVER commit directly to main
+- NEVER push to origin/main
+- ALWAYS use PR workflow
+- Check branch name before first commit: `git branch --show-current`
+
+**Reference**: PR #4 shows correct workflow (feature/rebrand-to-phil-ai → main)
+
+---
+
 ## [2026-01-13] Task: Close gaps from initial OpenCode scaffolding workflow
 
 ### GitHub Issue Metadata is Mandatory for pjbeyer Projects
