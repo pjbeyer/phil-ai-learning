@@ -27,9 +27,29 @@ Capture and implement learnings with hierarchical storage and closed-loop tracki
 
 ## Installation
 
+### Claude Code
+
 ```bash
 /plugin marketplace add pjbeyer/phil-ai
 /plugin install phil-ai-learning@phil-ai
+```
+
+### OpenCode
+
+For local testing during development:
+
+```bash
+# Build the plugin
+bun run build
+
+# Test locally (loads from .opencode/plugin/)
+bunx opencode
+```
+
+For production use (when published to npm):
+
+```bash
+npm install -g phil-ai-learning
 ```
 
 ## Commands

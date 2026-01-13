@@ -95,6 +95,75 @@ ${CLAUDE_PLUGIN_ROOT}/scripts/find-learnings.sh --summary
 ${CLAUDE_PLUGIN_ROOT}/scripts/find-learnings.sh --json
 ```
 
+## OPENCODE SUPPORT
+
+### Build Tooling
+
+| Tool | Purpose | Version |
+|------|---------|---------|
+| Bun | Runtime and build tool | 1.x |
+| TypeScript | Language | 5.x |
+| `@opencode-ai/plugin` | OpenCode plugin SDK | ^1.0.85 |
+
+**Build command**: `bun run build`
+
+**Configuration**:
+- Target: ES2022, ESM modules
+- Output: `dist/` directory
+- Entry: `src/index.ts`
+
+### Dual Distribution Model
+
+The plugin supports both local development and npm distribution:
+
+| Context | Plugin Location | Command Directory |
+|---------|----------------|-------------------|
+| Local testing | `.opencode/plugin/phil-ai-learning.ts` | `../../commands` |
+| npm package | `dist/index.js` | `../commands` |
+
+**Runtime path detection pattern**:
+```typescript
+const isLocalPlugin = import.meta.dir.includes('.opencode/plugin');
+const commandDir = isLocalPlugin
+  ? path.join(import.meta.dir, '..', '..', 'commands')
+  : path.join(import.meta.dir, '..', 'commands');
+```
+
+This pattern enables the same plugin code to work in both contexts without modification.
+
+### Key Files
+
+| File | Purpose |
+|------|---------|
+| `src/index.ts` | OpenCode plugin entry point (canonical source) |
+| `.opencode/plugin/phil-ai-learning.ts` | Local development copy for testing |
+| `package.json` | npm package manifest with build scripts |
+| `tsconfig.json` | TypeScript configuration (ES2022, ESM) |
+| `bun.lock` | Dependency lock file |
+| `.gitignore` | Excludes dist/, node_modules/ |
+
+### Local Testing
+
+```bash
+# Build the plugin
+bun run build
+
+# Test locally (loads from .opencode/plugin/)
+bunx opencode
+```
+
+The local copy in `.opencode/plugin/` is used during development. After building, the plugin loads commands from the repository's `commands/` directory.
+
+### npm Distribution
+
+When published to npm, users install globally:
+
+```bash
+npm install -g phil-ai-learning
+```
+
+The plugin loads from `node_modules/phil-ai-learning/dist/` and resolves commands relative to the installed package location.
+
 ## NOTES
 
 - **External dependency**: Searches `~/Projects/{profile}/.workflow/` directories outside this repo
